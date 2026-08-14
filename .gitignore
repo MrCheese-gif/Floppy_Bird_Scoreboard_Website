@@ -1,0 +1,9 @@
+# dev tools
+resources.md
+
+# ide and tools config
+.idea/
+.vscode/
+.opencode/
+.pi/
+.mimocode/

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>High scores page</title>
+	<style>
+	    /*<!--CSS here -->*/
+		body {
+    		background-color: #f4f4f9;
+    		font-family: Arial, sans-serif;
+		}
+	    .container {
+    		max-width: 600px;
+    		margin: 50px auto;
+    		padding: 20px;
+    		background-color: #fff;
+    		box-shadow: 0 0
+    		}
+
+		.h1 {
+    		font-size: 2em;
+    		text-align: center;
+    		margin-bottom: 1rem;
+		}
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+		li {
+			margin-bottom: .5rem;
+			border-bottom: 1px solid grey;
+			border-right: 1px solid grey;
+			border-top: 1px solid grey;
+			border-left: 5px solid greenyellow;
+			border-radius: 50px;
+			padding: 10px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		li:last-child {
+			border-bottom: none;
+		}
+	</style>
+</head>
+<body>
+    <!-- Actual HTML -->
+    <div class="container">
+    	<h1>High Scores Page</h1>
+    	<ul id="score-list">
+           	<li>
+
+           	</li>
+    	</ul>
+    </div>
+    <script>
+    // JavaScript
+    console.log("Script active") // Check if JS works
+
+    async function loadScoreboard() { // Fetch scores from the server and load them into the list
+      console.log("Loading scores..."); // Check if function is called
+
+      const options = {
+        method: 'GET',
+        headers: {'xc-token': 'CREATE_YOUR_API_TOKEN_FROM https://app.nocodb.com/account/tokens'}
+      };
+      // const response = await fetch('/.netlify/functions/scores'); //Change fetch link as per
+      const response = fetch('https://app.nocodb.com/api/v3/data/px2vuqfkfzvana1/mxrw6250uqdbym2/records?pageSize=25&viewId=vwa5ucwxownaeje9', options)
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
+      // TODO: Remove after debugging
+      // const response = `
+      //   {
+      //     "list": [
+      //       {"username": "Alice", "score": 75},
+      //       {"username": "Bob", "score": 45},
+      //       {"username": "Charlie", "score": 89},
+      //       {"username": "David", "score": 67},
+      //       {"username": "Eve", "score": 91},
+      //       {"username": "Frank", "score": 32},
+      //       {"username": "Grace", "score": 78},
+      //       {"username": "Hannah", "score": 56},
+      //       {"username": "Ivy", "score": 84},
+      //       {"username": "Jack", "score": 62}
+      //     ]
+      //   }
+      //   `;
+      console.log(response); // Check if response is received correctly
+
+      // Parse JSON
+      const data = await JSON.parse(response);
+      console.log(data); // Check if data is fetched correctly
+
+      // Sort descending (highest to lowest)
+      const sorted = data.list.sort((a, b) => b.score - a.score);
+
+      // Get the `<ul>` element
+      const scoreList = document.getElementById('score-list');
+      scoreList.innerHTML = ''; // Clear old entries
+
+      // Build new `<li>` for each score
+      sorted.forEach((entry, index) => {
+        const li = document.createElement('li'); // Create a new list item element
+        li.className = 'score-item'; // Add a class for styling
+        li.textContent = `${index + 1}. ${entry.username} - ${entry.score}`; // Display username and score
+        scoreList.appendChild(li); // Append to the list (`<ul>` element)
+        li.style.backgroundColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`; // Random background color for each entry
+      });
+    }
+
+    // Call on page load
+    loadScoreboard();
+    // Optional: HIGH REFRESH RATE: refresh every 5 seconds
+    // setInterval(loadScoreboard, 5000);
+    // Optional: refresh every 30 seconds
+    // setInterval(loadScoreboard, 30000);
+    </script>
+</body>
+</html>

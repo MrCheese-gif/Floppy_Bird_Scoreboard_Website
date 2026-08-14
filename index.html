@@ -50,7 +50,7 @@
     	<h1>High Scores Page</h1>
     	<ul id="score-list">
            	<li>
-
+                Loading Data...
            	</li>
     	</ul>
     </div>
@@ -58,30 +58,19 @@
 <script>
     console.log("Script active");
 
+    // const NOCO_DB_API_KEY:String = "";
+
     async function loadScoreboard() {
         console.log("Loading scores...");
 
-        const options = {
-            method: "GET",
-            headers: { "xc-token": "nc_pat_Vk5akSzG3CUJMLUA9wbArpqM9DkFUPQHEMXyPRT7" },
-        };
-
         try {
-        // fetch data
-            const response = await fetch(
-                "https://app.nocodb.com/api/v3/data/px2vuqfkfzvana1/mxrw6250uqdbym2/records?pageSize=25&viewId=vwa5ucwxownaeje9",
-                options,
-            );
-
+            // Call YOUR Netlify Function (not NoCoDB directly)
+            const response = await fetch("/.netlify/functions/scores");
             const data = await response.json();
             console.log("Data fetched:", data);
 
-            // error handling
             if (!data.records) {
-                console.error(
-                    "No list property found in response payload",
-                    data,
-                );
+                console.error("No records found", data);
                 return;
             }
 

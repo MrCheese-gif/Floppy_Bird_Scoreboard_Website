@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>High scores page</title>
 	<style>
-	    /*<!--CSS here -->*/
+	    /*<!--Font import -->*/
+		@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+		/* CSS */
 		body {
     		background-color: #f4f4f9;
     		font-family: Arial, sans-serif;
@@ -43,7 +47,7 @@
 			border-bottom: none;
 		}
 		p {
-		margin-top: 500px;
+		font-family: 'JetBrains Mono';
 		}
 		.center {
 		display: flex;
@@ -58,6 +62,24 @@
 		a:hover {
 			text-decoration: underline;
 		}
+
+		footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    z-index: 1000;
+    height: 100px;
+	}
+
+	.footerText {
+	font-family: 'JetBrains Mono';
+	color: #f1f1f1;
+	}
 	</style>
 </head>
 <body>
@@ -70,12 +92,13 @@
            	</li>
     	</ul>
     </div>
-    <div id="center">
-        <p>
+    <footer>
+        <p class="footerText">
             To add your score, email <a href="mailto:alrisdhanwani@protonmail.com">alrisdhanwani@protonmail.com</a> with your username, score and an image of your score.
             To play the game, go to <a href="https://transcendent-peony-c6d089.netlify.app/">Floppy Bird Web Edition</a>.
         </p>
-    </div>
+        <p class="footerText">&copy; Alris Dhanwani. All rights Reserved.</p>
+    </footer>
 </body>
 <script>
     console.log("Script active");
